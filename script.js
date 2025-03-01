@@ -57,11 +57,13 @@ async function loadMarkdown(postId) {
 // Render the content of the selected journal entry
 function renderBlogPost(entry, content) {
     const blogPost = document.createElement('div');
-    blogPost.className = 'blog-post';
+    blogPost.className = 'journal-post-container';
     blogPost.innerHTML = `
-        <h2>${entry.title}</h2>
-        <div class="content">${content}</div>
-        <a href="#" class="back-button">Back to Journal</a>
+        <div class="journal-post">
+            <h2>${entry.title}</h2>
+            <div class="content">${content}</div>
+            <a href="#" class="back-button">Back to Journal</a>
+        </div>
     `;
 
     blogPost.querySelector('.back-button').addEventListener('click', (e) => {
