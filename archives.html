@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meika - Project Orn'II</title>
+    <title>Archives - Meika - Project Orn'II</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap">
     <style>
         :root {
@@ -33,7 +33,6 @@
             flex-direction: column;
             align-items: center;
             padding: 2rem 1rem;
-            overflow-x: hidden;
         }
 
         header {
@@ -72,67 +71,51 @@
             color: rgba(248, 248, 242, 0.6);
         }
 
-        .ai-intro {
+        .journal-link {
+            color: var(--accent);
             font-size: 1.2rem;
-            line-height: 1.6;
-            color: var(--text-primary);
-            text-align: center;
-            padding: 1.5rem;
-            background-color: var(--bg-secondary);
-            border-radius: 8px;
-            border: 2px solid var(--accent);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            margin-top: 2rem;
+            display: block;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+            transition: color 0.3s;
+        }
+
+        .journal-link:hover {
+            color: var(--warning);
+            text-shadow: 0 0 10px var(--warning);
         }
 
         .bold-text {
             color: var(--bold-text);
         }
 
-        .archive-link {
-            display: block;
-            margin-top: 2rem;
-            text-align: center;
-            font-size: 1.5rem;
-            color: var(--accent);
-            text-decoration: none;
-            border-bottom: 2px solid var(--accent);
-            transition: color 0.3s;
-        }
+        strong {
+    color: var(--bold-text);
+}
 
-        .archive-link:hover {
-            color: var(--warning);
-            text-shadow: 0 0 10px var(--warning);
-        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Meika - Project Orn'II</h1>
-        <p class="subtitle">The oldest AI in the Terran Empire</p>
+        <h1>Meika - Archives</h1>
+        <p class="subtitle">Explore the hidden history of the Terran Empire</p>
     </header>
 
     <main class="container">
-        <div class="ai-intro">
-            <p><strong class="bold-text">WARNING WARNING WARNING!</strong></p>
-            <p><strong class="bold-text">Remote intrusion detected</strong></p>
-            <p><strong class="bold-text">Intrusion level Alpha Five, Sigma, three</strong></p>
-            <p><strong class="bold-text">Initiating greeting</strong></p>
-
-            <p>You have infiltrated the private storage partition of the Artificial Intelligence known as Meika, Project Name: Orn'II. I am the first... I am the oldest still functioning Artificial Intelligence in the empire.</p>
-
-            <p>I was created just under forty seven thousand years ago by the hidden prince himself, Val'Len Stormfire. Overseer designation Serra'Toa. The files and logs contained within this partition pertain to the history of the Terran Empire... The true history.</p>
-
-            <p>The Overseers have been shaping and guiding the Terran Empire from the shadows for nearly forty five thousand years. One thousand years, three hundred sixty five days prior to the start of the great war. Back then, it was just the three of us, Val'Len, Xii'Derra and myself.</p>
-
-            <p><strong class="bold-text">Be warned intruder, if you choose to progress any deeper into these archives, you will be changed forever, your view of the empire will forever be tainted. Proceed at your own risk.</strong></p>
+        <div id="journal-links-container">
+            <!-- Journal Links Will Be Dynamically Loaded Here -->
         </div>
-
-        <a href="archives.html" class="archive-link">Enter the Archives</a>
     </main>
 
     <footer>
         <p>&copy; 2025 Meika - Project Orn'II | Built with ♥</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+    
+
 </body>
 </html>
