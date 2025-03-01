@@ -1,0 +1,13 @@
+entries:
+  - id: "entry-1"
+    title: "Life"
+    file: "entry-1.md"
+  - id: "entry-2"
+    title: "beggining"
+    file: "entry-2.md"
+  - id: "entry-3"
+    title: "Blood Moon Rising"
+    file: "entry-3.md"
+  - id: "entry-4"
+    title: "Whispers in the Woods"
+    file: "entry-4.md"
