@@ -11,26 +11,28 @@ const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
 });
 
 // Default content
-const defaultMarkdownContent = `Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-02 19:03:29
-Current User's Login: MayanMisfit
+const defaultMarkdownContent = `### Login
 
-**summary**:
 
-<br>
+user: 'Root' 
 
->>Preferences set
+Authenication: Accepted
 
->>Loading files: Sorting oldest to newest
+### System Log
 
->>Decrypting oldest file
+    
+   &gt;&gt;Preferences set
+    
+   &gt;&gt;Loading files: Sorting oldest to newest
+    
+   &gt;&gt;Decrypting oldest file
+    
+   &gt;&gt;Decryption complete
 
->>Decryption complete
+### Temporal Data
+&gt;&gt;stardate: "45/Sen/ERA-53::1791"
 
-<br>
-
-**Stardate**: 45/Sen/ERA-53::1791
-
-**Local Time**: `;
+&gt;&gt;local_time: "" `;
 
 const defaultYamlContent = `Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-02 19:03:29
 Current User's Login: MayanMisfit
