@@ -5,34 +5,53 @@ const config = {
 
 let journalEntries = [];
 
-// 1. Define the custom extension
+// 1. Define the custom extensions
 const nameExtension = {
   name: 'name',
-  level: 'inline', // Inline level because we're targeting text between brackets
+  level: 'inline',
   start(src) {
-    // We want to find the occurrence of `[[` (start of custom tag)
     return src.indexOf('[[');
   },
   tokenizer(src, tokens) {
-    // Match the pattern for `[[name]]`
-    const rule = /^\[\[(.*?)\]\]/; // This will match `[[name]]` and capture the name
+    const rule = /^\[\[(.*?)\]\]/;
     const match = rule.exec(src);
     if (match) {
       return {
-        type: 'name', // Custom token type for names
-        raw: match[0], // Full match (e.g., `[[John Doe]]`)
-        text: match[1], // Extracted name (e.g., `John Doe`)
+        type: 'name',
+        raw: match[0],
+        text: match[1],
       };
     }
   },
   renderer(token) {
-    // Render the name in a span with a custom class for styling
-    return `<span class="name">${token.text}</span>`; // Customize with your desired styling
+    return `<span class="name">${token.text}</span>`;
   },
 };
 
-// 2. Register the extension with Marked
-marked.use({ extensions: [nameExtension] });
+const wikiLinkExtension = {
+  name: 'wikiLink',
+  level: 'inline',
+  start(src) {
+    return src.indexOf('{{');
+  },
+  tokenizer(src) {
+    const match = /^{{([^|}]+)(?:\|([^}]+))?}}/.exec(src);
+    if (match) {
+      return {
+        type: 'wikiLink',
+        raw: match[0],
+        page: match[1],
+        label: match[2] || match[1],
+      };
+    }
+  },
+  renderer(token) {
+    return `<a href="#" class="wiki-link" onclick="loadMarkdown('md/${encodeURIComponent(token.page.replace(/\s+/g, '_'))}.md', '${token.label}')">${token.label}</a>`;
+  },
+};
+
+// 2. Register the extensions with Marked
+marked.use({ extensions: [nameExtension, wikiLinkExtension] });
 
 async function loadManifest() {
     try {
@@ -90,9 +109,9 @@ async function loadMarkdown(filePath, title) {
         if (!response.ok) throw new Error(`Failed to load ${filePath}, HTTP status ${response.status}`);
 
         const markdownText = await response.text();
-        console.log("Markdown content fetched:", markdownText.substring(0, 100) + "..."); // Show first 100 chars
+        console.log("Markdown content fetched:", markdownText.substring(0, 100) + "...");
 
-        // 3. Parse the markdown content using Marked (with the custom extension)
+        // 3. Parse the markdown content using Marked (with the custom extensions)
         const htmlContent = marked.parse(markdownText);
 
         renderBlogPost(title, htmlContent);
