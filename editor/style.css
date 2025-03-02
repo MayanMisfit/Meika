@@ -26,13 +26,21 @@ body {
     margin-bottom: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid #333;
+    gap: 20px;
 }
 
 .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
+    flex: 1;
+    margin-right: 20px;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .header h1 {
@@ -55,9 +63,8 @@ body {
     background-color: #2ea44f;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
 }
 
 .github-button:hover {
@@ -97,86 +104,25 @@ body {
     font-size: 24px;
 }
 
-/* Editor container styles */
-.editor-container {
-    display: flex;
-    gap: 20px;
-    height: calc(100vh - 200px);
-}
-
-.editor-container.blocked {
-    pointer-events: none;
-    opacity: 0.5;
-}
-
-.editor-section, .preview-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background-color: #2d2d2d;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #363636;
-    border-bottom: 1px solid #444;
-}
-
-/* CodeMirror customization */
-.CodeMirror {
-    height: 100% !important;
-    font-family: 'Fira Code', monospace;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-/* Preview section styles */
-.preview-content {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    background-color: #2d2d2d;
-}
-
-/* Toolbar styles */
-.toolbar {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-}
-
-.toolbar.blocked {
-    pointer-events: none;
-    opacity: 0.5;
-}
-
-.toolbar button {
+/* Mode selector and export styles */
+#mode-selector {
     padding: 8px 16px;
     background-color: #363636;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    min-width: 120px;
 }
 
-.toolbar button:hover {
-    background-color: #444;
-}
-
-/* Export dropdown styles */
 .export-dropdown {
     position: relative;
     display: inline-block;
+    min-width: 120px;
 }
 
 .download-btn {
+    width: 100%;
     padding: 8px 16px;
     background-color: #bb86fc;
     color: white;
@@ -212,6 +158,64 @@ body {
     display: block;
 }
 
+/* Editor container styles */
+.editor-container {
+    display: flex;
+    gap: 20px;
+    height: calc(100vh - 200px);
+}
+
+.editor-container.blocked {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.editor-section, .preview-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #2d2d2d;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Toolbar styles */
+.toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.toolbar.blocked {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.toolbar button {
+    padding: 8px 16px;
+    background-color: #363636;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toolbar button:hover {
+    background-color: #444;
+}
+
+/* Section header styles */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #363636;
+    border-bottom: 1px solid #444;
+}
+
 /* Status bar styles */
 .status-bar {
     padding: 8px;
@@ -220,6 +224,22 @@ body {
     font-size: 12px;
     display: flex;
     justify-content: space-between;
+}
+
+/* Preview content styles */
+.preview-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #2d2d2d;
+}
+
+/* CodeMirror customization */
+.CodeMirror {
+    height: 100% !important;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 /* Fullscreen styles */
@@ -259,40 +279,4 @@ body {
     .hidden-print-only {
         display: block;
     }
-}
-
-/* Mode selector styles */
-#mode-selector {
-    padding: 8px;
-    background-color: #363636;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#mode-selector option {
-    background-color: #2d2d2d;
-}
-
-/* Add these to your existing style.css */
-.login-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.9);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    color: white;
-    text-align: center;
-}
-
-.editor-container.blocked, .toolbar.blocked {
-    pointer-events: none;
-    opacity: 0.5;
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vampire Markdown & YAML Editor</title>
+    <title>Markdown & YAML Editor</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/markdown/markdown.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/yaml/yaml.min.js"></script>
@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/@octokit/oauth-app@4.2.0/dist/oauth-app.umd.js"></script>
 </head>
 <body>
     <div id="login-overlay" class="login-overlay">
@@ -36,15 +35,14 @@
                     </div>
                     <div id="logged-in" style="display: none;">
                         <span id="user-info">
-                            <img id="user-avatar" alt="User Avatar" style="width: 24px; height: 24px; border-radius: 50%;">
                             <span id="username"></span>
                         </span>
-                        <span id="current-time">UTC: 2025-03-02 22:18:09</span>
+                        <span id="current-time"></span>
                         <button id="github-logout" class="github-button">Sign Out</button>
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="header-controls">
                 <select id="mode-selector">
                     <option value="markdown">Markdown</option>
                     <option value="yaml">YAML</option>
