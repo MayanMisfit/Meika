@@ -11,7 +11,7 @@ const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
 });
 
 // Default content
-const defaultMarkdownContent = `Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-02 18:56:50
+const defaultMarkdownContent = `Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-02 19:03:29
 Current User's Login: MayanMisfit
 
 **summary**:
@@ -32,21 +32,26 @@ Current User's Login: MayanMisfit
 
 **Local Time**: `;
 
-const defaultYamlContent = `# Current Status
-date: '2025-03-02 18:56:50'
-user: 'MayanMisfit'
+const defaultYamlContent = `Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-02 19:03:29
+Current User's Login: MayanMisfit
 
-# System Log
-summary:
-  status:
-    - "Preferences set"
-    - "Loading files: Sorting oldest to newest"
-    - "Decrypting oldest file"
-    - "Decryption complete"
+**summary**:
 
-# Temporal Data
-stardate: "45/Sen/ERA-53::1791"
-local_time: ""`;
+<br>
+
+>>Preferences set
+
+>>Loading files: Sorting oldest to newest
+
+>>Decrypting oldest file
+
+>>Decryption complete
+
+<br>
+
+**Stardate**: 45/Sen/ERA-53::1791
+
+**Local Time**: `;
 
 // Set default content based on mode
 let editorMode = 'markdown';
