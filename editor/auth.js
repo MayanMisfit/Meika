@@ -57,7 +57,7 @@ class GitHubSessionManager {
         document.getElementById('logged-out').style.display = 'none';
         document.getElementById('logged-in').style.display = 'flex';
         document.getElementById('username').textContent = 'MayanMisfit';
-        document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:20:51';
+        document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:23:39';
         this.isUserLoggedIn = true;
         this.updateEditorAccess();
     }
@@ -76,31 +76,26 @@ class GitHubSessionManager {
         if (editor) editor.value = '';
         this.updateUIForLoggedOutUser();
     }
+
+    initiateGitHubLogin() {
+        window.location.href = 'https://github.com/login/oauth/authorize';
+    }
 }
 
 const sessionManager = new GitHubSessionManager();
 
 document.addEventListener('DOMContentLoaded', async function() {
-    document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:20:51';
+    document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:23:39';
     
     // Add login button handlers
-    const loginButtons = ['github-login', 'github-login-overlay'];
-    loginButtons.forEach(buttonId => {
-        document.getElementById(buttonId).addEventListener('click', (e) => {
-            e.preventDefault();
-            // Let the system handle the OAuth flow
-            if (window.githubOAuth && typeof window.githubOAuth.login === 'function') {
-                window.githubOAuth.login();
-            }
-        });
+    document.getElementById('github-login').addEventListener('click', () => {
+        sessionManager.initiateGitHubLogin();
+    });
+    document.getElementById('github-login-overlay').addEventListener('click', () => {
+        sessionManager.initiateGitHubLogin();
     });
     
-    // Add logout button handler
-    document.getElementById('github-logout').addEventListener('click', (e) => {
-        e.preventDefault();
-        if (window.githubOAuth && typeof window.githubOAuth.logout === 'function') {
-            window.githubOAuth.logout();
-        }
+    document.getElementById('github-logout').addEventListener('click', () => {
         sessionManager.killSession();
     });
 
