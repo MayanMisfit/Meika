@@ -57,7 +57,7 @@ class GitHubSessionManager {
         document.getElementById('logged-out').style.display = 'none';
         document.getElementById('logged-in').style.display = 'flex';
         document.getElementById('username').textContent = 'MayanMisfit';
-        document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:13:02';
+        document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:17:10';
         this.isUserLoggedIn = true;
         this.updateEditorAccess();
     }
@@ -75,50 +75,25 @@ class GitHubSessionManager {
         const editor = document.getElementById('editor');
         if (editor) editor.value = '';
         this.updateUIForLoggedOutUser();
-        this.revokeGitHubSession();
-    }
-
-    async revokeGitHubSession() {
-        const token = sessionStorage.getItem('github_token');
-        if (token) {
-            try {
-                await fetch('https://api.github.com/applications/{client_id}/grant', {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
-                });
-            } catch (error) {
-                console.error('Error revoking GitHub session:', error);
-            }
-        }
-    }
-
-    initiateGitHubLogin() {
-        const clientId = 'Iv23liBmuVkYfimI9CMi';
-        const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
-        const scope = 'user';
-        window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
     }
 }
 
 const sessionManager = new GitHubSessionManager();
 
 document.addEventListener('DOMContentLoaded', async function() {
-    document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:13:02';
+    document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:17:10';
     
-    // Add login button handlers
+    // Use system's GitHub auth flow
     document.getElementById('github-login').addEventListener('click', () => {
-        sessionManager.initiateGitHubLogin();
+        window.location.href = '/login';
     });
     document.getElementById('github-login-overlay').addEventListener('click', () => {
-        sessionManager.initiateGitHubLogin();
+        window.location.href = '/login';
     });
     
-    // Add logout button handler
     document.getElementById('github-logout').addEventListener('click', () => {
         sessionManager.killSession();
+        window.location.href = '/logout';
     });
 
     await sessionManager.checkAndUpdateSession();
