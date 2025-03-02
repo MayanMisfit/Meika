@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown & YAML Editor</title>
+    <title>Vampire Markdown & YAML Editor</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/markdown/markdown.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/yaml/yaml.min.js"></script>
@@ -12,16 +12,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css">
     <link rel="stylesheet" href="style.css">
-    <!-- Add GitHub OAuth client library -->
     <script src="https://unpkg.com/@octokit/oauth-app@4.2.0/dist/oauth-app.umd.js"></script>
-    
 </head>
 <body>
+    <div id="login-overlay" class="login-overlay">
+        <h2>Please Sign In to Use the Editor</h2>
+        <button id="github-login-overlay" class="github-button">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px;">
+            Sign in with GitHub
+        </button>
+    </div>
+
     <div class="container">
         <div class="header">
             <div class="header-content">
                 <h1>Vampire Markdown & YAML Editor</h1>
-                <!-- Add GitHub login section -->
                 <div class="github-auth">
                     <div id="logged-out" style="display: none;">
                         <button id="github-login" class="github-button">
@@ -34,6 +39,7 @@
                             <img id="user-avatar" alt="User Avatar" style="width: 24px; height: 24px; border-radius: 50%;">
                             <span id="username"></span>
                         </span>
+                        <span id="current-time">UTC: 2025-03-02 22:18:09</span>
                         <button id="github-logout" class="github-button">Sign Out</button>
                     </div>
                 </div>

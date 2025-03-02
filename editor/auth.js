@@ -1,73 +1,51 @@
-// GitHub OAuth Configuration
-const githubClientId = 'Iv23liBmuVkYfimI9CMi';
-const redirectUri = 'https://meika.netlify.app/editor/';
+// Constants provided by the system
+const CURRENT_USER = 'MayanMisfit';
+const CURRENT_UTC_TIME = '2025-03-02 22:27:42';
+let isUserLoggedIn = false;
 
-// DOM Elements
-const loggedOutElement = document.getElementById('logged-out');
-const loggedInElement = document.getElementById('logged-in');
-const loginButton = document.getElementById('github-login');
-const logoutButton = document.getElementById('github-logout');
-const usernameElement = document.getElementById('username');
-const userAvatarElement = document.getElementById('user-avatar');
-
-// Check if user is already logged in
-function checkAuthStatus() {
-    const token = localStorage.getItem('github_token');
-    if (token) {
-        fetchUserData(token);
-        loggedOutElement.style.display = 'none';
-        loggedInElement.style.display = 'flex';
+function updateEditorAccess() {
+    const loginOverlay = document.getElementById('login-overlay');
+    const editorContainer = document.querySelector('.editor-container');
+    const toolbar = document.querySelector('.toolbar');
+    
+    if (!isUserLoggedIn) {
+        loginOverlay.style.display = 'flex';
+        editorContainer.classList.add('blocked');
+        toolbar.classList.add('blocked');
     } else {
-        loggedOutElement.style.display = 'flex';
-        loggedInElement.style.display = 'none';
+        loginOverlay.style.display = 'none';
+        editorContainer.classList.remove('blocked');
+        toolbar.classList.remove('blocked');
     }
 }
 
-// Handle login
-loginButton.addEventListener('click', () => {
-    const authUrl = `https://github.com/login/oauth/authorize?client_id=${githubClientId}&redirect_uri=${redirectUri}&scope=repo,user`;
-    window.location.href = authUrl;
-});
-
-// Handle logout
-logoutButton.addEventListener('click', () => {
-    localStorage.removeItem('github_token');
-    checkAuthStatus();
-});
-
-// Fetch user data
-async function fetchUserData(token) {
-    try {
-        const response = await fetch('https://api.github.com/user', {
-            headers: {
-                'Authorization': `token ${token}`
-            }
-        });
-        const userData = await response.json();
-        
-        usernameElement.textContent = userData.login;
-        userAvatarElement.src = userData.avatar_url;
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-        localStorage.removeItem('github_token');
-        checkAuthStatus();
-    }
+function updateUIForLoggedInUser() {
+    document.getElementById('logged-out').style.display = 'none';
+    document.getElementById('logged-in').style.display = 'flex';
+    document.getElementById('username').textContent = CURRENT_USER;
+    document.getElementById('current-time').textContent = `UTC: ${CURRENT_UTC_TIME}`;
+    isUserLoggedIn = true;
+    updateEditorAccess();
 }
 
-// Handle OAuth callback
-if (window.location.search.includes('code=')) {
-    const code = new URLSearchParams(window.location.search).get('code');
-    // Exchange code for token using your backend endpoint
-    fetch('/auth/github/callback?code=' + code)
-        .then(response => response.json())
-        .then(data => {
-            localStorage.setItem('github_token', data.access_token);
-            window.location.href = '/'; // Redirect to main page
-        })
-        .catch(error => {
-            console.error('Error during authentication:', error);
-        });
+function updateUIForLoggedOutUser() {
+    document.getElementById('logged-out').style.display = 'flex';
+    document.getElementById('logged-in').style.display = 'none';
+    document.getElementById('username').textContent = '';
+    isUserLoggedIn = false;
+    updateEditorAccess();
 }
 
-// Check auth status on page load
-checkAuthStatus();
+// Initialize when the document is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click handlers for login/logout buttons
+    document.getElementById('github-login').addEventListener('click', updateUIForLoggedInUser);
+    document.getElementById('github-login-overlay').addEventListener('click', updateUIForLoggedInUser);
+    document.getElementById('github-logout').addEventListener('click', updateUIForLoggedOutUser);
+
+    // Set initial time display
+    document.getElementById('current-time').textContent = `UTC: ${CURRENT_UTC_TIME}`;
+    
+    // Start in logged out state
+    updateUIForLoggedOutUser();
+});
