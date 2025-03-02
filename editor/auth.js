@@ -1,72 +1,73 @@
-// Constants provided by the system
-const CURRENT_USER = 'MayanMisfit';
-let isUserLoggedIn = false;
+// GitHub OAuth Configuration
+const githubClientId = 'Iv23liBmuVkYfimI9CMi';
+const redirectUri = 'https://meika.netlify.app/editor/';
 
-function updateEditorAccess() {
-    const loginOverlay = document.getElementById('login-overlay');
-    const editorContainer = document.querySelector('.editor-container');
-    const toolbar = document.querySelector('.toolbar');
-    
-    if (!isUserLoggedIn) {
-        loginOverlay.style.display = 'flex';
-        editorContainer.classList.add('blocked');
-        toolbar.classList.add('blocked');
+// DOM Elements
+const loggedOutElement = document.getElementById('logged-out');
+const loggedInElement = document.getElementById('logged-in');
+const loginButton = document.getElementById('github-login');
+const logoutButton = document.getElementById('github-logout');
+const usernameElement = document.getElementById('username');
+const userAvatarElement = document.getElementById('user-avatar');
+
+// Check if user is already logged in
+function checkAuthStatus() {
+    const token = localStorage.getItem('github_token');
+    if (token) {
+        fetchUserData(token);
+        loggedOutElement.style.display = 'none';
+        loggedInElement.style.display = 'flex';
     } else {
-        loginOverlay.style.display = 'none';
-        editorContainer.classList.remove('blocked');
-        toolbar.classList.remove('blocked');
+        loggedOutElement.style.display = 'flex';
+        loggedInElement.style.display = 'none';
     }
 }
 
-function updateUIForLoggedInUser(username) {
-    if (username === CURRENT_USER) {
-        document.getElementById('logged-out').style.display = 'none';
-        document.getElementById('logged-in').style.display = 'flex';
-        document.getElementById('username').textContent = username;
-        isUserLoggedIn = true;
-        updateEditorAccess();
-        sessionStorage.setItem('isLoggedIn', 'true');
-        sessionStorage.setItem('username', username);
-    } else {
-        alert('Access denied. Only MayanMisfit can use this editor.');
-        killSession();
-    }
-}
-
-function updateUIForLoggedOutUser() {
-    document.getElementById('logged-out').style.display = 'flex';
-    document.getElementById('logged-in').style.display = 'none';
-    document.getElementById('username').textContent = '';
-    isUserLoggedIn = false;
-    updateEditorAccess();
-}
-
-function killSession() {
-    sessionStorage.clear();
-    const editor = document.getElementById('editor');
-    if (editor) editor.value = '';
-    updateUIForLoggedOutUser();
-}
-
-function handleLogin() {
-    const username = prompt('Enter username:');
-    if (username) {
-        updateUIForLoggedInUser(username);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('github-login').addEventListener('click', handleLogin);
-    document.getElementById('github-login-overlay').addEventListener('click', handleLogin);
-    document.getElementById('github-logout').addEventListener('click', killSession);
-    
-    // Check for existing session
-    const savedSession = sessionStorage.getItem('isLoggedIn');
-    const savedUsername = sessionStorage.getItem('username');
-    
-    if (savedSession && savedUsername === CURRENT_USER) {
-        updateUIForLoggedInUser(savedUsername);
-    } else {
-        killSession();
-    }
+// Handle login
+loginButton.addEventListener('click', () => {
+    const authUrl = `https://github.com/login/oauth/authorize?client_id=${githubClientId}&redirect_uri=${redirectUri}&scope=repo,user`;
+    window.location.href = authUrl;
 });
+
+// Handle logout
+logoutButton.addEventListener('click', () => {
+    localStorage.removeItem('github_token');
+    checkAuthStatus();
+});
+
+// Fetch user data
+async function fetchUserData(token) {
+    try {
+        const response = await fetch('https://api.github.com/user', {
+            headers: {
+                'Authorization': `token ${token}`
+            }
+        });
+        const userData = await response.json();
+        
+        usernameElement.textContent = userData.login;
+        userAvatarElement.src = userData.avatar_url;
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        localStorage.removeItem('github_token');
+        checkAuthStatus();
+    }
+}
+
+// Handle OAuth callback
+if (window.location.search.includes('code=')) {
+    const code = new URLSearchParams(window.location.search).get('code');
+    // Exchange code for token using your backend endpoint
+    fetch('/auth/github/callback?code=' + code)
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('github_token', data.access_token);
+            window.location.href = '/'; // Redirect to main page
+        })
+        .catch(error => {
+            console.error('Error during authentication:', error);
+        });
+}
+
+// Check auth status on page load
+checkAuthStatus();
