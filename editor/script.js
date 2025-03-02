@@ -1,3 +1,47 @@
+// Current user info
+const currentUser = {
+    login: 'MayanMisfit',
+    timestamp: '2025-03-02 22:07:18'
+};
+
+// Auth Elements
+const loggedOutElement = document.getElementById('logged-out');
+const loggedInElement = document.getElementById('logged-in');
+const loginButton = document.getElementById('github-login');
+const logoutButton = document.getElementById('github-logout');
+const usernameElement = document.getElementById('username');
+const userAvatarElement = document.getElementById('user-avatar');
+
+// Initialize auth state
+function initializeAuth() {
+    // Show logged in state
+    loggedOutElement.style.display = 'none';
+    loggedInElement.style.display = 'flex';
+    usernameElement.textContent = currentUser.login;
+    userAvatarElement.src = `https://github.com/${currentUser.login}.png`;
+}
+
+// Handle logout
+logoutButton?.addEventListener('click', () => {
+    loggedInElement.style.display = 'none';
+    loggedOutElement.style.display = 'flex';
+    currentUser.login = 'Root';
+    currentUser.timestamp = '';
+});
+
+// Handle login
+loginButton?.addEventListener('click', () => {
+    loggedOutElement.style.display = 'none';
+    loggedInElement.style.display = 'flex';
+    currentUser.login = 'MayanMisfit';
+    currentUser.timestamp = '2025-03-02 22:07:18';
+    usernameElement.textContent = currentUser.login;
+    userAvatarElement.src = `https://github.com/${currentUser.login}.png`;
+});
+
+// Initialize auth state when the page loads
+document.addEventListener('DOMContentLoaded', initializeAuth);
+
 // Initialize CodeMirror
 const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     mode: 'markdown',
@@ -14,25 +58,25 @@ const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
 const defaultMarkdownContent = ` **Login**
 
 
-**user:** 'Root' 
+**user:** '${currentUser.login}' 
 
-**Authenication:** Accepted
+**Authentication:** Accepted
 
 **System Log**
 
     
-   &gt;&gt;Preferences set
+   >>Preferences set
     
-   &gt;&gt;Loading files: Sorting oldest to newest
+   >>Loading files: Sorting oldest to newest
     
-   &gt;&gt;Decrypting oldest file
+   >>Decrypting oldest file
     
-   &gt;&gt;Decryption complete
+   >>Decryption complete
 
 **Temporal Data**
-&gt;&gt;stardate: "45/Sen/ERA-53::1791"
+>>stardate: "45/Sen/ERA-53::1791"
 
-&gt;&gt;local_time: "" `;
+>>local_time: "${currentUser.timestamp}" `;
 
 const defaultYamlContent = `
 
