@@ -1,6 +1,5 @@
 // Constants provided by the system
 const CURRENT_USER = 'MayanMisfit';
-const CURRENT_UTC_TIME = '2025-03-02 22:27:42';
 let isUserLoggedIn = false;
 
 function updateEditorAccess() {
@@ -19,13 +18,19 @@ function updateEditorAccess() {
     }
 }
 
-function updateUIForLoggedInUser() {
-    document.getElementById('logged-out').style.display = 'none';
-    document.getElementById('logged-in').style.display = 'flex';
-    document.getElementById('username').textContent = CURRENT_USER;
-    document.getElementById('current-time').textContent = `UTC: ${CURRENT_UTC_TIME}`;
-    isUserLoggedIn = true;
-    updateEditorAccess();
+function updateUIForLoggedInUser(username) {
+    if (username === CURRENT_USER) {
+        document.getElementById('logged-out').style.display = 'none';
+        document.getElementById('logged-in').style.display = 'flex';
+        document.getElementById('username').textContent = username;
+        isUserLoggedIn = true;
+        updateEditorAccess();
+        sessionStorage.setItem('isLoggedIn', 'true');
+        sessionStorage.setItem('username', username);
+    } else {
+        alert('Access denied. Only MayanMisfit can use this editor.');
+        killSession();
+    }
 }
 
 function updateUIForLoggedOutUser() {
@@ -36,16 +41,32 @@ function updateUIForLoggedOutUser() {
     updateEditorAccess();
 }
 
-// Initialize when the document is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Add click handlers for login/logout buttons
-    document.getElementById('github-login').addEventListener('click', updateUIForLoggedInUser);
-    document.getElementById('github-login-overlay').addEventListener('click', updateUIForLoggedInUser);
-    document.getElementById('github-logout').addEventListener('click', updateUIForLoggedOutUser);
-
-    // Set initial time display
-    document.getElementById('current-time').textContent = `UTC: ${CURRENT_UTC_TIME}`;
-    
-    // Start in logged out state
+function killSession() {
+    sessionStorage.clear();
+    const editor = document.getElementById('editor');
+    if (editor) editor.value = '';
     updateUIForLoggedOutUser();
+}
+
+function handleLogin() {
+    const username = prompt('Enter username:');
+    if (username) {
+        updateUIForLoggedInUser(username);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('github-login').addEventListener('click', handleLogin);
+    document.getElementById('github-login-overlay').addEventListener('click', handleLogin);
+    document.getElementById('github-logout').addEventListener('click', killSession);
+    
+    // Check for existing session
+    const savedSession = sessionStorage.getItem('isLoggedIn');
+    const savedUsername = sessionStorage.getItem('username');
+    
+    if (savedSession && savedUsername === CURRENT_USER) {
+        updateUIForLoggedInUser(savedUsername);
+    } else {
+        killSession();
+    }
 });
