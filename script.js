@@ -5,6 +5,35 @@ const config = {
 
 let journalEntries = [];
 
+// 1. Define the custom extension
+const nameExtension = {
+  name: 'name',
+  level: 'inline', // Inline level because we're targeting text between brackets
+  start(src) {
+    // We want to find the occurrence of `[[` (start of custom tag)
+    return src.indexOf('[[');
+  },
+  tokenizer(src, tokens) {
+    // Match the pattern for `[[name]]`
+    const rule = /^\[\[(.*?)\]\]/; // This will match `[[name]]` and capture the name
+    const match = rule.exec(src);
+    if (match) {
+      return {
+        type: 'name', // Custom token type for names
+        raw: match[0], // Full match (e.g., `[[John Doe]]`)
+        text: match[1], // Extracted name (e.g., `John Doe`)
+      };
+    }
+  },
+  renderer(token) {
+    // Render the name in a span with a custom class for styling
+    return `<span class="name">${token.text}</span>`; // Customize with your desired styling
+  },
+};
+
+// 2. Register the extension with Marked
+marked.use({ extensions: [nameExtension] });
+
 async function loadManifest() {
     try {
         console.log("Loading manifest...");
@@ -63,6 +92,7 @@ async function loadMarkdown(filePath, title) {
         const markdownText = await response.text();
         console.log("Markdown content fetched:", markdownText.substring(0, 100) + "..."); // Show first 100 chars
 
+        // 3. Parse the markdown content using Marked (with the custom extension)
         const htmlContent = marked.parse(markdownText);
 
         renderBlogPost(title, htmlContent);

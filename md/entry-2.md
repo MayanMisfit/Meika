@@ -1,14 +1,13 @@
-
 **summary**:  The older Val'len grew, the more erratic his thought train, he often stated that his brain moved at 100 ideas per second <br> <br>
 
 
->&gt;&gt; Preferences set 
+&gt;&gt; Preferences set 
 
->&gt;&gt; Loading files: Sorting oldest to newest
+&gt;&gt; Loading files: Sorting oldest to newest
 
->&gt;&gt; Decryption complete
+&gt;&gt; Decryption complete
 
->&gt;&gt; New file ready for download
+&gt;&gt; New file ready for download
 
 <br>
   <br>
@@ -28,33 +27,33 @@
 
 <br>
 
->**Val'len**: Bloody Hell Xii, are you trying to give me a heart attack?
+**Val'len**: Bloody Hell Xii, are you trying to give me a heart attack?
 
->**Xii'dera**: That depends on what you're doing in here, dear one.
+**Xii'dera**: That depends on what you're doing in here, dear one.
 
 >At this point Val'len had launched into his explanation, talking at a mile a minute; even I was having trouble keeping up with him, But Xii'dera as always; simply cupped his face and spoke softly.
 
 >It was always a wonder to watch him struggle to calm himself enough to be able to explain what was going on in his head. Sometimes it even took him several tries.
 
->**Xii'dera**: Calmly dear.
+**Xii'dera**: Calmly dear.
 
->**Val'len**: Alright... 
+**Val'len**: Alright... 
 
->**Val'len**: I want information, and I need access to the Arc-net.
+**Val'len**: I want information, and I need access to the Arc-net.
 
->**Xii'dera**: But you already have access to the Arc-net...
+**Xii'dera**: But you already have access to the Arc-net...
 
->**Val'len**: No Xii, I want all the information, I want everything and I want it from the root. I found an old Arc-net node in this facility.  I intend to power it up and give myself a full root access backdoor to every node on every planet.
+**Val'len**: No Xii, I want all the information, I want everything and I want it from the root. I found an old Arc-net node in this facility.  I intend to power it up and give myself a full root access backdoor to every node on every planet.
 
->**Xii'dera**: Wait... What?!
+**Xii'dera**: Wait... What?!
 
->**Xii'dera**: Val'len people are going to notice if you boot up a disused arc-net node. Val'len simply grinned and crossed his arms over chest in that tell tale fashion that quite clearly suggested he knew something she didn't.
+**Xii'dera**: Val'len people are going to notice if you boot up a disused arc-net node. Val'len simply grinned and crossed his arms over chest in that tell tale fashion that quite clearly suggested he knew something she didn't.
 
->**Xii'dera**: Alright smartass, what am I missing?
+**Xii'dera**: Alright smartass, what am I missing?
 
->**Orn'ii**: Val'len and I have compiled a program that will enable the node to re-join the network silently and prevent it from appearing in any network scans, it will be quite safe, Xii'dera 
+**Orn'ii**: Val'len and I have compiled a program that will enable the node to re-join the network silently and prevent it from appearing in any network scans, it will be quite safe, Xii'dera 
 
->**Xii'dera**: Well... alright, but I want to see the source code before you even consider powering up that node; deal?
+**Xii'dera**: Well... alright, but I want to see the source code before you even consider powering up that node; deal?
 
 >Val'len Barked with excitement before suddenly pressing his lips firmly to Xii'dera's, then spinning on his heal and returning to running between consoles; leaving Xii'dera standing there with a look of stunned disbelief. It was the first time since my creation that I'd seen her so completely lost for words. I laughed, I laughed hard. 
 
