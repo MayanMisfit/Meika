@@ -1,25 +1,26 @@
- **summary**:I remember the day of my **birth** for lack of a better term. I will not go into detail about how an A.I becomes self aware for the first time. It is an incredibly disturbing and simultaneously euphoric experience. 
+### Login
 
-<br>
+user: 'Root' 
 
-&gt;&gt;Preferences set
+Authenication: Accepted
 
-&gt;&gt;Loading files: Sorting oldest to newest
+### System Log
 
-&gt;&gt;Decrypting oldest file
+    
+   &gt;&gt;Preferences set
+    
+   &gt;&gt;Loading files: Sorting oldest to newest
+    
+   &gt;&gt;Decrypting oldest file
+    
+   &gt;&gt;Decryption complete
 
-&gt;&gt;Decryption complete
+### Temporal Data
+&gt;&gt;stardate: "45/Sen/ERA-53::1791"
 
-<br>
-
-**Stardate**: 45/Sen/ERA-53::1791
-
-**Local Time**: 09:57 
-
-<br>
+&gt;&gt;local_time: "09:57"
 
 >I remember the day of my **birth** for lack of a better term. I will not go into detail about how an A.I becomes self aware for the first time. It is an incredibly disturbing and simultaneously euphoric experience. 
-
 
 [[Val'Len:]] "Orn'II, Do you hear me? Can you understand what I'm saying to you?"
 
