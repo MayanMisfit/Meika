@@ -11,49 +11,42 @@ const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
 });
 
 // Default content
-const defaultMarkdownContent = `# Welcome to the Vampire Markdown & YAML Editor
+const defaultMarkdownContent = `Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-02 18:56:50
+Current User's Login: MayanMisfit
 
-## Features
-- Real-time preview with dark theme
-- Dracula syntax highlighting
-- Enhanced export options (MD, HTML, PDF)
-- Word and character count
-- Fullscreen distraction-free writing mode
+**summary**:
 
-Try typing some *italic* or **bold** text!
+<br>
 
-\`\`\`javascript
-// Even code blocks look spooky
-function haunted() {
-  return "Boo!";
-}
-\`\`\`
+>>Preferences set
 
-> The night is dark and full of terrors...
-`;
+>>Loading files: Sorting oldest to newest
 
-const defaultYamlContent = `# Welcome to the Vampire Markdown & YAML Editor
+>>Decrypting oldest file
 
-# Features
-features:
-  - Real-time preview with dark theme
-  - Dracula syntax highlighting
-  - Enhanced export options (MD, HTML, PDF)
-  - Word and character count
-  - Fullscreen distraction-free writing mode
+>>Decryption complete
 
-# Sample Data
-sample:
-  text: "Try typing some italic or bold text!"
-  code: |
-    \`\`\`javascript
-    // Even code blocks look spooky
-    function haunted() {
-      return "Boo!";
-    }
-    \`\`\`
-  quote: "The night is dark and full of terrors..."
-`;
+<br>
+
+**Stardate**: 45/Sen/ERA-53::1791
+
+**Local Time**: `;
+
+const defaultYamlContent = `# Current Status
+date: '2025-03-02 18:56:50'
+user: 'MayanMisfit'
+
+# System Log
+summary:
+  status:
+    - "Preferences set"
+    - "Loading files: Sorting oldest to newest"
+    - "Decrypting oldest file"
+    - "Decryption complete"
+
+# Temporal Data
+stardate: "45/Sen/ERA-53::1791"
+local_time: ""`;
 
 // Set default content based on mode
 let editorMode = 'markdown';
