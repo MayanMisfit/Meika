@@ -12,11 +12,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css">
     <link rel="stylesheet" href="style.css">
+    <!-- Add GitHub OAuth client library -->
+    <script src="https://unpkg.com/@octokit/oauth-app@4.2.0/dist/oauth-app.umd.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Vampire Markdown & YAML Editor</h1>
+            <div class="header-content">
+                <h1>Vampire Markdown & YAML Editor</h1>
+                <!-- Add GitHub login section -->
+                <div class="github-auth">
+                    <div id="logged-out" style="display: none;">
+                        <button id="github-login" class="github-button">
+                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px;">
+                            Sign in with GitHub
+                        </button>
+                    </div>
+                    <div id="logged-in" style="display: none;">
+                        <span id="user-info">
+                            <img id="user-avatar" alt="User Avatar" style="width: 24px; height: 24px; border-radius: 50%;">
+                            <span id="username"></span>
+                        </span>
+                        <button id="github-logout" class="github-button">Sign Out</button>
+                    </div>
+                </div>
+            </div>
             <div>
                 <select id="mode-selector">
                     <option value="markdown">Markdown</option>
