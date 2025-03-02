@@ -114,6 +114,7 @@ function renderBlogPost(title, content) {
             <h2>${title}</h2>
             <div class="content">${content}</div>
             <a href="#" class="back-button">Back to Archives</a>
+            <a href="/index.html" class="journal-link">EXIT</a>
         </div>
     `;
 

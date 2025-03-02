@@ -45,10 +45,14 @@
             color: var(--accent);
             margin-bottom: 0.5rem;
             font-size: 3rem;
-            text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 30px var(--accent);
         }
 
         .subtitle {
+            color: var(--info);
+            font-size: 1.2rem;
+        }
+
+        .info {
             color: var(--info);
             font-size: 1.2rem;
         }
@@ -78,10 +82,6 @@
             color: var(--text-primary);
             text-align: center;
             padding: 1.5rem;
-            background-color: var(--bg-secondary);
-            border-radius: 8px;
-            border: 2px solid var(--accent);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             margin-top: 2rem;
         }
 
@@ -96,8 +96,6 @@
             font-size: 1.5rem;
             color: var(--accent);
             text-decoration: none;
-            border-bottom: 2px solid var(--accent);
-            transition: color 0.3s;
         }
 
         .archive-link:hover {
@@ -105,32 +103,32 @@
             text-shadow: 0 0 10px var(--warning);
         }
 
-    .name {
-    font-weight: bold; /* Keep bold styling */
-    color: var(--bold-text); /* Set the color to a unique one (adjust as needed) */
-}
+        .name {
+        font-weight: bold; /* Keep bold styling */
+        color: var(--bold-text); /* Set the color to a unique one (adjust as needed) */
+        }
 
-blockquote {
-    font-style: italic; /* Italicize the quote */
-    padding-left: 20px; /* Space between the border and the text */
-    margin-left: 0; /* Remove any default margin */
-    margin-right: 0; /* Remove any default margin */
-    color: #555; /* Set a subtle color for the text */
-    font-size: 1.1em; /* Slightly larger font size */
-    line-height: 1.6; /* Improve readability */
-    border-radius: 5px; /* Rounded corners */
-    padding-top: 10px; /* Space at the top */
-    padding-bottom: 10px; /* Space at the bottom */
-}
+        blockquote {
+        font-style: italic; /* Italicize the quote */
+        padding-left: 20px; /* Space between the border and the text */
+        margin-left: 0; /* Remove any default margin */
+        margin-right: 0; /* Remove any default margin */
+        color: #555; /* Set a subtle color for the text */
+        font-size: 1.1em; /* Slightly larger font size */
+        line-height: 1.6; /* Improve readability */
+        border-radius: 5px; /* Rounded corners */
+        padding-top: 10px; /* Space at the top */
+        padding-bottom: 10px; /* Space at the bottom */
+        }
 
-p {
-    font-family: 'Arial', sans-serif; /* Set a clean, modern font */
-    font-size: 1rem; /* Standard font size */
-    line-height: 1.6; /* Increase line height for better readability */
-    margin-bottom: 1.2em; /* Space between paragraphs */
-    text-align: justify; /* Justify text to give a clean look */
-    letter-spacing: 0.5px; /* Slight letter spacing for a smoother appearance */
-}
+        p {
+        font-family: 'Arial', sans-serif; /* Set a clean, modern font */
+        font-size: 1rem; /* Standard font size */
+        line-height: 1.6; /* Increase line height for better readability */
+        margin-bottom: 1.2em; /* Space between paragraphs */
+        text-align: justify; /* Justify text to give a clean look */
+        letter-spacing: 0.5px; /* Slight letter spacing for a smoother appearance */
+        }
 
 
 
@@ -161,7 +159,7 @@ p {
         <a href="archives.html" class="archive-link">Enter the Archives</a>
     </main>
 
-    <footer>
+    <footer class="info">
         <p>&copy; 2025 Meika - Project Orn'II | Built with ♥</p>
     </footer>
 </body>
