@@ -1,10 +1,10 @@
-### Login
+**Login**
 
-user: 'Root' 
+**user:** 'Root' 
 
-Authenication: Accepted
+**Authenication:** Accepted
 
-### System Log
+#### System Log
 
     
    &gt;&gt;Preferences set
@@ -15,7 +15,7 @@ Authenication: Accepted
     
    &gt;&gt;Decryption complete
 
-### Temporal Data
+#### Temporal Data
 &gt;&gt;stardate: "45/Sen/ERA-53::1791"
 
 &gt;&gt;local_time: "09:57"
