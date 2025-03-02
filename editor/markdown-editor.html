@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/5.1.1/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #282a36;
+            color: #f8f8f2;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .editor-container {
+            display: flex;
+            gap: 20px;
+            height: 70vh;
+        }
+        .editor-section, .preview-section {
+            flex: 1;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .section-header {
+            background-color: #44475a;
+            color: #f8f8f2;
+            padding: 10px 15px;
+            font-weight: bold;
+        }
+        .CodeMirror {
+            height: 100%;
+            font-size: 16px;
+        }
+        .preview-content {
+            height: 100%;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #282a36;
+            color: #f8f8f2;
+        }
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        button {
+            background-color: #6272a4;
+            color: #f8f8f2;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #bd93f9;
+        }
+        .download-btn {
+            background-color: #50fa7b;
+            color: #282a36;
+            font-weight: bold;
+        }
+        .download-btn:hover {
+            background-color: #5af78e;
+        }
+        .export-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .export-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #44475a;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+        }
+        .export-dropdown-content a {
+            color: #f8f8f2;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+        .export-dropdown-content a:hover {
+            background-color: #6272a4;
+        }
+        .export-dropdown:hover .export-dropdown-content {
+            display: block;
+        }
+        .preview-content img {
+            max-width: 100%;
+        }
+        .preview-content h1, .preview-content h2, .preview-content h3 {
+            color: #ff79c6;
+        }
+        .preview-content a {
+            color: #8be9fd;
+            text-decoration: none;
+        }
+        .preview-content a:hover {
+            text-decoration: underline;
+        }
+        .preview-content code {
+            background-color: #44475a;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .preview-content pre {
+            background-color: #44475a;
+            padding: 16px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .preview-content blockquote {
+            border-left: 4px solid #bd93f9;
+            padding-left: 16px;
+            margin-left: 0;
+            color: #f1fa8c;
+        }
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #44475a;
+            padding: 5px 10px;
+            font-size: 14px;
+            color: #f8f8f2;
+        }
+        .hidden-print-only {
+            display: none;
+        }
+        @media print {
+            .hidden-print-only {
+                display: block;
+                background-color: white;
+                color: black;
+                padding: 20px;
+            }
+            .hidden-print-only * {
+                color: black;
+            }
+            .hidden-print-only h1, .hidden-print-only h2, .hidden-print-only h3 {
+                color: black;
+            }
+            .toolbar, .header, .editor-section, .section-header, .status-bar {
+                display: none;
+            }
+            .container {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+            }
+            .preview-section {
+                box-shadow: none;
+            }
+        }
+        @media (max-width: 768px) {
+            .editor-container {
+                flex-direction: column;
+            }
+            .header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Vampire Markdown Editor</h1>
+            <div class="export-dropdown">
+                <button class="download-btn">Export / Download ▼</button>
+                <div class="export-dropdown-content">
+                    <a id="export-md">Download as Markdown (.md)</a>
+                    <a id="export-html">Download as HTML (.html)</a>
+                    <a id="export-pdf">Download as PDF (.pdf)</a>
+                    <a id="export-print">Print Document</a>
+                    <a id="export-copy">Copy to Clipboard</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="toolbar">
+            <button id="bold">Bold</button>
+            <button id="italic">Italic</button>
+            <button id="heading">Heading</button>
+            <button id="link">Link</button>
+            <button id="image">Image</button>
+            <button id="list">List</button>
+            <button id="code">Code</button>
+            <button id="quote">Quote</button>
+            <button id="clear">Clear</button>
+        </div>
+        
+        <div class="editor-container">
+            <div class="editor-section">
+                <div class="section-header">Edit</div>
+                <textarea id="editor"></textarea>
+                <div class="status-bar">
+                    <span id="word-count">0 words</span>
+                    <span id="char-count">0 characters</span>
+                </div>
+            </div>
+            <div class="preview-section">
+                <div class="section-header">Preview</div>
+                <div id="preview" class="preview-content"></div>
+            </div>
+        </div>
+        
+        <div id="print-content" class="hidden-print-only"></div>
+    </div>
+
+    <script>
+        // Initialize CodeMirror
+        const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+            mode: 'markdown',
+            theme: 'dracula',
+            lineNumbers: true,
+            lineWrapping: true,
+            autofocus: true,
+            tabSize: 2,
+            indentWithTabs: false
+        });
+
+        // Default content
+        const defaultContent = `# Welcome to the Vampire Markdown Editor
+
+## Features
+- Real-time preview with dark theme
+- Dracula syntax highlighting
+- Enhanced export options (MD, HTML, PDF)
+- Word and character count
+
+Try typing some *italic* or **bold** text!
+
+\`\`\`javascript
+// Even code blocks look spooky
+function haunted() {
+  return "Boo!";
+}
+\`\`\`
+
+> The night is dark and full of terrors...
+`;
+        editor.setValue(defaultContent);
+        
+        // Preview function
+        function updatePreview() {
+            const markdownText = editor.getValue();
+            const previewElement = document.getElementById('preview');
+            previewElement.innerHTML = marked.parse(markdownText);
+            updateWordCount();
+        }
+
+        // Word and character count
+        function updateWordCount() {
+            const text = editor.getValue();
+            const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const charCount = text.length;
+            
+            document.getElementById('word-count').textContent = `${wordCount} words`;
+            document.getElementById('char-count').textContent = `${charCount} characters`;
+        }
+
+        // Initial preview update
+        updatePreview();
+
+        // Update preview on editor changes
+        editor.on('change', updatePreview);
+
+        // Toolbar functions
+        function insertText(before, after = '') {
+            const selection = editor.getSelection();
+            editor.replaceSelection(before + selection + after);
+            
+            // If nothing was selected, place cursor appropriately
+            if (!selection) {
+                const cursor = editor.getCursor();
+                editor.setCursor({ line: cursor.line, ch: cursor.ch - after.length });
+            }
+            editor.focus();
+        }
+
+        // Toolbar event listeners
+        document.getElementById('bold').addEventListener('click', () => {
+            insertText('**', '**');
+        });
+
+        document.getElementById('italic').addEventListener('click', () => {
+            insertText('*', '*');
+        });
+
+        document.getElementById('heading').addEventListener('click', () => {
+            insertText('## ');
+        });
+
+        document.getElementById('link').addEventListener('click', () => {
+            insertText('[', '](https://example.com)');
+        });
+
+        document.getElementById('image').addEventListener('click', () => {
+            insertText('![Alt text](', ')');
+        });
+
+        document.getElementById('list').addEventListener('click', () => {
+            insertText('- Item 1\n- Item 2\n- Item 3\n');
+        });
+
+        document.getElementById('code').addEventListener('click', () => {
+            insertText('```\n', '\n```');
+        });
+
+        document.getElementById('quote').addEventListener('click', () => {
+            insertText('> ');
+        });
+
+        document.getElementById('clear').addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear the editor?')) {
+                editor.setValue('');
+            }
+        });
+
+        // Export functions
+        document.getElementById('export-md').addEventListener('click', () => {
+            const markdown = editor.getValue();
+            downloadFile(markdown, 'vampire-document.md', 'text/markdown');
+        });
+
+        document.getElementById('export-html').addEventListener('click', () => {
+            const markdown = editor.getValue();
+            const html = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Exported Document</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 16px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        blockquote {
+            border-left: 4px solid #ddd;
+            padding-left: 16px;
+            margin-left: 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    ${marked.parse(markdown)}
+</body>
+</html>`;
+            downloadFile(html, 'vampire-document.html', 'text/html');
+        });
+
+        document.getElementById('export-pdf').addEventListener('click', () => {
+            const markdown = editor.getValue();
+            const printContent = document.getElementById('print-content');
+            printContent.innerHTML = marked.parse(markdown);
+            
+            const options = {
+                margin: 1,
+                filename: 'vampire-document.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(options).from(printContent).save();
+        });
+
+        document.getElementById('export-print').addEventListener('click', () => {
+            window.print();
+        });
+
+        document.getElementById('export-copy').addEventListener('click', () => {
+            const markdown = editor.getValue();
+            navigator.clipboard.writeText(markdown).then(() => {
+                alert('Markdown copied to clipboard!');
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+                alert('Failed to copy to clipboard. Your browser may not support this feature.');
+            });
+        });
+
+        function downloadFile(content, filename, contentType) {
+            const blob = new Blob([content], { type: contentType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Add keyboard shortcuts
+        editor.setOption('extraKeys', {
+            'Ctrl-B': function() { insertText('**', '**'); },
+            'Ctrl-I': function() { insertText('*', '*'); },
+            'Ctrl-H': function() { insertText('## '); },
+            'Ctrl-K': function() { insertText('[', '](url)'); },
+            'Ctrl-L': function() { insertText('- '); }
+        });
+
+        // Load from localStorage if available
+        window.addEventListener('load', () => {
+            const savedContent = localStorage.getItem('vampireMarkdownContent');
+            if (savedContent) {
+                editor.setValue(savedContent);
+            }
+        });
+
+        // Save to localStorage on changes
+        editor.on('change', () => {
+            localStorage.setItem('vampireMarkdownContent', editor.getValue());
+        });
+    </script>
+</body>
+</html>
