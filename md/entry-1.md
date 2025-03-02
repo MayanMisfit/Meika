@@ -4,7 +4,7 @@
 
 **Authenication:** Accepted
 
-#### System Log
+**System Log**
 
     
    &gt;&gt;Preferences set
@@ -15,7 +15,8 @@
     
    &gt;&gt;Decryption complete
 
-#### Temporal Data
+**Temporal Data**
+
 &gt;&gt;stardate: "45/Sen/ERA-53::1791"
 
 &gt;&gt;local_time: "09:57"

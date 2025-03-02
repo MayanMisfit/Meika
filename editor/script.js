@@ -11,16 +11,14 @@ const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
 });
 
 // Default content
-const defaultMarkdownContent = `
-
-### Login
+const defaultMarkdownContent = ` **Login**
 
 
-user: 'Root' 
+**user:** 'Root' 
 
-Authenication: Accepted
+**Authenication:** Accepted
 
-### System Log
+**System Log**
 
     
    &gt;&gt;Preferences set
@@ -31,35 +29,25 @@ Authenication: Accepted
     
    &gt;&gt;Decryption complete
 
-### Temporal Data
+**Temporal Data**
 &gt;&gt;stardate: "45/Sen/ERA-53::1791"
 
 &gt;&gt;local_time: "" `;
 
 const defaultYamlContent = `
 
-### Login
+entries:
+  - id: "entry-1"
+    title: "Life"
+    file: "entry-1.md"
+  - id: "entry-2"
+    title: "beggining"
+    file: "entry-2.md"
+  - id: "entry-3"
+    title: "Tease"
+    file: "entry-3.md"
 
-
-user: 'Root' 
-
-Authenication: Accepted
-
-### System Log
-
-    
-   >>Preferences set
-    
-   >>Loading files: Sorting oldest to newest
-    
-   >>Decrypting oldest file
-    
-   >>Decryption complete
-
-### Temporal Data
->>stardate: "45/Sen/ERA-53::1791"
-
->>local_time: "" `;
+`;
 
 // Set default content based on mode
 let editorMode = 'markdown';
