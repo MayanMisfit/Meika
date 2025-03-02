@@ -57,7 +57,7 @@ class GitHubSessionManager {
         document.getElementById('logged-out').style.display = 'none';
         document.getElementById('logged-in').style.display = 'flex';
         document.getElementById('username').textContent = 'MayanMisfit';
-        document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:09:49';
+        document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:13:02';
         this.isUserLoggedIn = true;
         this.updateEditorAccess();
     }
@@ -94,14 +94,32 @@ class GitHubSessionManager {
             }
         }
     }
+
+    initiateGitHubLogin() {
+        const clientId = 'Iv23liBmuVkYfimI9CMi';
+        const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
+        const scope = 'user';
+        window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
+    }
 }
 
 const sessionManager = new GitHubSessionManager();
 
 document.addEventListener('DOMContentLoaded', async function() {
-    document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:09:49';
+    document.getElementById('current-time').textContent = 'UTC: 2025-03-02 23:13:02';
+    
+    // Add login button handlers
+    document.getElementById('github-login').addEventListener('click', () => {
+        sessionManager.initiateGitHubLogin();
+    });
+    document.getElementById('github-login-overlay').addEventListener('click', () => {
+        sessionManager.initiateGitHubLogin();
+    });
+    
+    // Add logout button handler
     document.getElementById('github-logout').addEventListener('click', () => {
         sessionManager.killSession();
     });
+
     await sessionManager.checkAndUpdateSession();
 });
