@@ -11,7 +11,9 @@ const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
 });
 
 // Default content
-const defaultMarkdownContent = `### Login
+const defaultMarkdownContent = `
+
+### Login
 
 
 user: 'Root' 
@@ -34,26 +36,30 @@ Authenication: Accepted
 
 &gt;&gt;local_time: "" `;
 
-const defaultYamlContent = `Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-02 19:03:29
-Current User's Login: MayanMisfit
+const defaultYamlContent = `
 
-**summary**:
+### Login
 
-<br>
 
->>Preferences set
+user: 'Root' 
 
->>Loading files: Sorting oldest to newest
+Authenication: Accepted
 
->>Decrypting oldest file
+### System Log
 
->>Decryption complete
+    
+   >>Preferences set
+    
+   >>Loading files: Sorting oldest to newest
+    
+   >>Decrypting oldest file
+    
+   >>Decryption complete
 
-<br>
+### Temporal Data
+>>stardate: "45/Sen/ERA-53::1791"
 
-**Stardate**: 45/Sen/ERA-53::1791
-
-**Local Time**: `;
+>>local_time: "" `;
 
 // Set default content based on mode
 let editorMode = 'markdown';
@@ -207,9 +213,14 @@ document.getElementById('quote').addEventListener('click', () => {
     insertText('> ');
 });
 
+// Updated clear button to reset to default content
 document.getElementById('clear').addEventListener('click', () => {
-    if (confirm('Are you sure you want to clear the editor?')) {
-        editor.setValue('');
+    if (confirm('Are you sure you want to reset to default content?')) {
+        if (editorMode === 'markdown') {
+            editor.setValue(defaultMarkdownContent);
+        } else {
+            editor.setValue(defaultYamlContent);
+        }
     }
 });
 
