@@ -2,13 +2,13 @@
 
 <br>
 
->&gt;&gt;Preferences set 
+&gt;&gt;Preferences set 
 
->&gt;&gt;Loading files: Sorting oldest to newest
+&gt;&gt;Loading files: Sorting oldest to newest
 
->&gt;&gt;Decryption complete
+&gt;&gt;Decryption complete
 
->&gt;&gt;New file ready for download
+&gt;&gt;New file ready for download
 
 <br>
 
@@ -29,22 +29,22 @@
 <br>
   <br>
 
->**Xii'dera**: Is that a Fendrix micro core?
+**Xii'dera**: Is that a Fendrix micro core?
 
->**Val'len**: Yes, I found it in the storage unit; I'm going to transfer Orn'ii to it. I'll need some Xenon Fusion cells, I don't suppose you could wrangle some? This thing is going to be seriously power hungry.
+**Val'len**: Yes, I found it in the storage unit; I'm going to transfer Orn'ii to it. I'll need some Xenon Fusion cells, I don't suppose you could wrangle some? This thing is going to be seriously power hungry.
 
->**Xii'dera**: I can probably arrange that; there's none down here?
+**Xii'dera**: I can probably arrange that; there's none down here?
 
->**Val'len**: Not a one, I've hunted this place high and low. `He shook his head emphatically and threw his arms in the air.`
+**Val'len**: Not a one, I've hunted this place high and low. `He shook his head emphatically and threw his arms in the air.`
 
->**Xii'dera**: Alright, I'll see what I can do. `She leaned in real close and pressed her cheek to his`
+**Xii'dera**: Alright, I'll see what I can do. `She leaned in real close and pressed her cheek to his`
 
->**Xii'dera**: By the way dear one, it's rude to stare. `She nipped his ear and span on her heal, her tail flicking over his nose.` By the way, feel free to power up the node whenever you're ready. But before you do that, why don't you get changed and we'll head in to the city for a while; the fresh air will do you some good.
+**Xii'dera**: By the way dear one, it's rude to stare. `She nipped his ear and span on her heal, her tail flicking over his nose.` By the way, feel free to power up the node whenever you're ready. But before you do that, why don't you get changed and we'll head in to the city for a while; the fresh air will do you some good.
 
 >Val'len's face was an unreadable mask as she sauntered from the room, He finished rebuilding the wrist computer before finally getting to his feet and muttering under his breath.
 <br>
   <br>
   
->**Val'len**: I swear, that female is such a tease. We'll be back in a day or two Orn; hopefully with those fusion cells.
+**Val'len**: I swear, that female is such a tease. We'll be back in a day or two Orn; hopefully with those fusion cells.
 
->**Orn'ii**: Of course Father, take care.
+**Orn'ii**: Of course Father, take care.
