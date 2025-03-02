@@ -45,7 +45,8 @@
         .editor-section, .preview-section {
             flex: 1;
             border-radius: 5px;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         .section-header {
@@ -55,11 +56,16 @@
             font-weight: bold;
         }
         .CodeMirror {
-            height: 100%;
+            height: auto;
+            flex-grow: 1;
             font-size: 16px;
+            overflow: hidden;
+        }
+        .CodeMirror-scroll {
+            min-height: 100%;
         }
         .preview-content {
-            height: 100%;
+            flex-grow: 1;
             padding: 15px;
             overflow-y: auto;
             background-color: #282a36;
@@ -189,6 +195,10 @@
         @media (max-width: 768px) {
             .editor-container {
                 flex-direction: column;
+                height: auto;
+            }
+            .editor-section, .preview-section {
+                min-height: 50vh;
             }
             .header {
                 flex-direction: column;
@@ -252,7 +262,8 @@
             lineWrapping: true,
             autofocus: true,
             tabSize: 2,
-            indentWithTabs: false
+            indentWithTabs: false,
+            viewportMargin: Infinity
         });
 
         // Default content
@@ -451,12 +462,19 @@ function haunted() {
             'Ctrl-L': function() { insertText('- '); }
         });
 
+        // Refresh editor on window resize to fix layout
+        window.addEventListener('resize', () => {
+            editor.refresh();
+        });
+
         // Load from localStorage if available
         window.addEventListener('load', () => {
             const savedContent = localStorage.getItem('vampireMarkdownContent');
             if (savedContent) {
                 editor.setValue(savedContent);
             }
+            // Force a refresh after load to ensure proper sizing
+            setTimeout(() => editor.refresh(), 100);
         });
 
         // Save to localStorage on changes
