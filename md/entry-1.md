@@ -38,5 +38,3 @@
 >**Xii'Dera** Oh, my dear Val'Len, we've been through this before. We Alpharii are already overly revered, and you are far more unique than all of us, you were born an Alpharii, the very first; the people would liken you to a god. You are fifteen years old Val'Len, and look at what you've already accomplished.
 
 >Xii'Dera stepped closer to him and cupped his face, I heard no more of that conversation as they finished if telepathically. That was the only time in the last 50 thousand years that I ever saw Val'Lan lose his cool with Xii'Dera.
-
-
