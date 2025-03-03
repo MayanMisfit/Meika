@@ -1,7 +1,7 @@
 class DiscordSessionManager {
     constructor() {
         this.isUserLoggedIn = false;
-        this.currentTime = '2025-03-03 00:18:08';
+        this.currentTime = '2025-03-03 00:22:12';
         this.currentUser = 'MayanMisfit';
         this.clientId = '1345901505982758912';
     }
@@ -107,7 +107,7 @@ class DiscordSessionManager {
     }
 
     initiateDiscordLogin() {
-        // Use meika.netlify.app as the base URL
+        // The correct redirect URI without /editor/
         const redirectUri = encodeURIComponent('https://meika.netlify.app/.netlify/functions/discord-callback');
         
         // Discord OAuth2 URL with required scopes
