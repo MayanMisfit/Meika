@@ -1,5 +1,8 @@
-[build]
-  functions = "netlify/functions"
+[[redirects]]
+  from = "/editor/callback"
+  to = "/editor/"
+  status = 302
+  force = true
 
 [[redirects]]
   from = "/*"
