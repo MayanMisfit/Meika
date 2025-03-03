@@ -1,7 +1,7 @@
 class DiscordSessionManager {
     constructor() {
         this.isUserLoggedIn = false;
-        this.currentTime = '2025-03-03 00:32:32';
+        this.currentTime = '2025-03-03 00:40:06';
         this.currentUser = 'MayanMisfit';
         this.clientId = '1345901505982758912';
     }
@@ -66,8 +66,9 @@ class DiscordSessionManager {
                 const data = await response.json();
                 sessionStorage.setItem('discord_token', data.access_token);
                 
-                // Remove code from URL
-                window.history.replaceState({}, document.title, window.location.pathname);
+                // Remove code from URL and redirect to editor
+                window.history.replaceState({}, document.title, '/editor/');
+                this.updateUIForLoggedInUser();
             } catch (error) {
                 console.error('Auth error:', error);
             }
