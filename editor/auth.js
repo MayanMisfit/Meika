@@ -1,7 +1,7 @@
 class DiscordSessionManager {
     constructor() {
         this.isUserLoggedIn = false;
-        this.currentTime = '2025-03-03 00:13:43';
+        this.currentTime = '2025-03-03 00:18:08';
         this.currentUser = 'MayanMisfit';
         this.clientId = '1345901505982758912';
     }
@@ -107,13 +107,13 @@ class DiscordSessionManager {
     }
 
     initiateDiscordLogin() {
-        // Use the current URL's origin for the redirect
-        const redirectUri = encodeURIComponent(`${window.location.origin}/.netlify/functions/discord-callback`);
+        // Use meika.netlify.app as the base URL
+        const redirectUri = encodeURIComponent('https://meika.netlify.app/.netlify/functions/discord-callback');
         
         // Discord OAuth2 URL with required scopes
         const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${this.clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify`;
         
-        // Redirect to Discord auth
+        console.log('Redirecting to:', discordAuthUrl); // Debug log
         window.location.href = discordAuthUrl;
     }
 }
@@ -121,27 +121,14 @@ class DiscordSessionManager {
 const sessionManager = new DiscordSessionManager();
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Set up Discord login button listeners
-    const loginButtons = ['github-login', 'github-login-overlay'];
-    loginButtons.forEach(buttonId => {
-        const button = document.getElementById(buttonId);
-        if (button) {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('Login button clicked'); // Debug log
-                sessionManager.initiateDiscordLogin();
-            });
-        }
-    });
-
-    // Set up logout button
-    const logoutButton = document.getElementById('github-logout');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', (e) => {
+    // Set up Discord login button listeners - using querySelectorAll to catch all login buttons
+    document.querySelectorAll('.discord-button').forEach(button => {
+        button.addEventListener('click', (e) => {
             e.preventDefault();
-            sessionManager.killSession();
+            console.log('Discord login button clicked'); // Debug log
+            sessionManager.initiateDiscordLogin();
         });
-    }
+    });
 
     // Update UI elements
     document.getElementById('current-time').textContent = `UTC: ${sessionManager.currentTime}`;
