@@ -11,14 +11,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="login-overlay" class="login-overlay">
         <h2>Please Sign In to Use the Editor</h2>
-        <button id="github-login-overlay" class="github-button">
-            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px;">
-            Sign in with GitHub
+        <button id="github-login-overlay" class="discord-button">
+            <i class="fab fa-discord"></i>
+            Sign in with Discord
         </button>
     </div>
 
@@ -26,19 +27,19 @@
         <div class="header">
             <div class="header-content">
                 <h1>Vampire Markdown & YAML Editor</h1>
-                <div class="github-auth">
+                <div class="discord-auth">
                     <div id="logged-out" style="display: none;">
-                        <button id="github-login" class="github-button">
-                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 20px; height: 20px;">
-                            Sign in with GitHub
+                        <button id="github-login" class="discord-button">
+                            <i class="fab fa-discord"></i>
+                            Sign in with Discord
                         </button>
                     </div>
                     <div id="logged-in" style="display: none;">
                         <span id="user-info">
-                            <span id="username"></span>
+                            <span id="username">MayanMisfit</span>
                         </span>
-                        <span id="current-time"></span>
-                        <button id="github-logout" class="github-button">Sign Out</button>
+                        <span id="current-time">UTC: 2025-03-03 00:08:24</span>
+                        <button id="github-logout" class="discord-button">Sign Out</button>
                     </div>
                 </div>
             </div>
