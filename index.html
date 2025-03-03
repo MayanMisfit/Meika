@@ -104,33 +104,31 @@
         }
 
         .name {
-        font-weight: bold; /* Keep bold styling */
-        color: var(--bold-text); /* Set the color to a unique one (adjust as needed) */
+            font-weight: bold;
+            color: var(--bold-text);
         }
 
         blockquote {
-        font-style: italic; /* Italicize the quote */
-        padding-left: 20px; /* Space between the border and the text */
-        margin-left: 0; /* Remove any default margin */
-        margin-right: 0; /* Remove any default margin */
-        color: #555; /* Set a subtle color for the text */
-        font-size: 1.1em; /* Slightly larger font size */
-        line-height: 1.6; /* Improve readability */
-        border-radius: 5px; /* Rounded corners */
-        padding-top: 10px; /* Space at the top */
-        padding-bottom: 10px; /* Space at the bottom */
+            font-style: italic;
+            padding-left: 20px;
+            margin-left: 0;
+            margin-right: 0;
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.6;
+            border-radius: 5px;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
 
         p {
-        font-family: 'Arial', sans-serif; /* Set a clean, modern font */
-        font-size: 1rem; /* Standard font size */
-        line-height: 1.6; /* Increase line height for better readability */
-        margin-bottom: 1.2em; /* Space between paragraphs */
-        text-align: justify; /* Justify text to give a clean look */
-        letter-spacing: 0.5px; /* Slight letter spacing for a smoother appearance */
+            font-family: 'Arial', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.2em;
+            text-align: justify;
+            letter-spacing: 0.5px;
         }
-
-
 
     </style>
 </head>
@@ -141,26 +139,33 @@
     </header>
 
     <main class="container">
-        <div class="ai-intro">
-            <p><strong class="bold-text">WARNING WARNING WARNING!</strong></p>
-            <p><strong class="bold-text">Remote intrusion detected</strong></p>
-            <p><strong class="bold-text">Intrusion level Alpha Five, Sigma, three</strong></p>
-            <p><strong class="bold-text">Initiating greeting</strong></p>
-
-            <p>You have infiltrated the private storage partition of the Artificial Intelligence known as Meika, Project Name: Orn'II. I am the first... I am the oldest still functioning Artificial Intelligence in the empire.</p>
-
-            <p>I was created just under forty seven thousand years ago by the hidden prince himself, Val'Len Stormfire. Overseer designation Serra'Toa. The files and logs contained within this partition pertain to the history of the Terran Empire... The true history.</p>
-
-            <p>The Overseers have been shaping and guiding the Terran Empire from the shadows for nearly forty five thousand years. One thousand years, three hundred sixty five days prior to the start of the great war. Back then, it was just the three of us, Val'Len, Xii'Derra and myself.</p>
-
-            <p><strong class="bold-text">Be warned intruder, if you choose to progress any deeper into these archives, you will be changed forever, your view of the empire will forever be tainted. Proceed at your own risk.</strong></p>
+        <div id="content" class="ai-intro">
+            <!-- Content will be loaded here -->
         </div>
-
         <a href="archives.html" class="archive-link">Enter the Archives</a>
     </main>
 
     <footer class="info">
         <p>&copy; 2025 Meika - Project Orn'II | Built with ♥</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // Load home.md content when the page loads
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('md/home.md');
+                if (!response.ok) throw new Error('Failed to load content');
+                
+                const markdownText = await response.text();
+                const htmlContent = marked.parse(markdownText);
+                
+                document.getElementById('content').innerHTML = htmlContent;
+            } catch (error) {
+                console.error('Error loading content:', error);
+                document.getElementById('content').innerHTML = '<p>Error loading content. Please try again later.</p>';
+            }
+        });
+    </script>
 </body>
 </html>
