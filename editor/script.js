@@ -34,7 +34,7 @@ loginButton?.addEventListener('click', () => {
     loggedOutElement.style.display = 'none';
     loggedInElement.style.display = 'flex';
     currentUser.login = 'MayanMisfit';
-    currentUser.timestamp = '2025-03-02 22:07:18';
+    currentUser.timestamp = '';
     usernameElement.textContent = currentUser.login;
     userAvatarElement.src = `https://github.com/${currentUser.login}.png`;
 });
@@ -58,7 +58,7 @@ const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
 const defaultMarkdownContent = ` **Login**
 
 
-**user:** '${currentUser.login}' 
+**user:** 'Root' 
 
 **Authentication:** Accepted
 
@@ -76,7 +76,7 @@ const defaultMarkdownContent = ` **Login**
 **Temporal Data**
 >>stardate: "45/Sen/ERA-53::1791"
 
->>local_time: "${currentUser.timestamp}" `;
+>>local_time: "" `;
 
 const defaultYamlContent = `
 
