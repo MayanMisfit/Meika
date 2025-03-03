@@ -1,7 +1,7 @@
 class DiscordSessionManager {
     constructor() {
         this.isUserLoggedIn = false;
-        this.currentTime = '2025-03-03 00:24:57';
+        this.currentTime = '2025-03-03 00:32:32';
         this.currentUser = 'MayanMisfit';
         this.clientId = '1345901505982758912';
     }
@@ -107,17 +107,13 @@ class DiscordSessionManager {
     }
 
     initiateDiscordLogin() {
-        // Get the current URL path
-        const currentPath = window.location.pathname;
-        
-        // Construct the redirect URI using the proper base URL
-        const baseUrl = 'https://meika.netlify.app';
-        const redirectUri = encodeURIComponent(`${baseUrl}${currentPath.endsWith('/') ? currentPath : currentPath + '/'}discord-callback`);
+        // Fixed redirect URI
+        const redirectUri = 'https://meika.netlify.app/editor/callback';
         
         // Discord OAuth2 URL with required scopes
-        const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${this.clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify`;
+        const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${this.clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=identify`;
         
-        console.log('Redirecting to:', decodeURIComponent(discordAuthUrl)); // Debug log
+        console.log('Redirecting to:', discordAuthUrl); // Debug log
         window.location.href = discordAuthUrl;
     }
 }
@@ -125,8 +121,8 @@ class DiscordSessionManager {
 const sessionManager = new DiscordSessionManager();
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Set up Discord login button listeners - using querySelectorAll to catch all login buttons
-    document.querySelectorAll('.discord-button, [id*="github-login"]').forEach(button => {
+    // Set up Discord login button listeners
+    document.querySelectorAll('[id^="github-login"]').forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
             console.log('Discord login button clicked'); // Debug log
