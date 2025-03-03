@@ -1,13 +1,19 @@
 exports.handler = async (event, context) => {
-  // Get the authorization code from the query parameters
+  // Extract code from query parameters
   const code = event.queryStringParameters.code;
   
-  // Redirect back to the editor page with the auth code
+  // Get the origin
+  const origin = event.headers.host === 'localhost:8888' 
+    ? 'http://localhost:8888' 
+    : 'https://meika.netlify.app';
+
   return {
     statusCode: 302,
     headers: {
-      'Location': 'https://meika.netlify.app/editor/',
-      'Cache-Control': 'no-cache'
+      'Location': `${origin}/editor/`, // Ensure trailing slash
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
     }
   };
 };
